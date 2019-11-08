@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToDoListContainerService } from './to-do-list-container.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { Task } from './to-do-list.model';
 
 import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
@@ -20,7 +21,7 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   public showLoading = false;
-  public taskList: any;
+  public taskList: Task[];
   dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   newTaskForm = new FormGroup({
@@ -54,13 +55,13 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
       };
 
       this.toDoListContainerService.createTask(sendData).subscribe(
-        resp => {
+        (resp: Task) => {
           this.taskList.push(resp);
           this.resetForm(this.newTaskForm);
           this.showLoading = false;
         },
         error => {
-          console.log('CONTROLLER ERROR' + error.error_description);
+          console.error('CONTROLLER ERROR' + error.error_description);
           this.showLoading = false;
         }
       );
@@ -72,10 +73,10 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
       status: event.checked
     };
     this.toDoListContainerService.updateTask(taskId, data).subscribe(
-      resp => {
+      (resp: Task) => {
         this.taskList.forEach(function (item: any, index: number) {
           if (item.id === taskId) {
-            this.taskList[index].status = event.checked;
+            this.taskList[index] = resp;
           }
         }.bind(this));
 
@@ -85,7 +86,7 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
         this.showLoading = false;
       },
       error => {
-        console.log('CONTROLLER ERROR' + error.error_description);
+        console.error('CONTROLLER ERROR' + error.error_description);
         this.showLoading = false;
       }
     );
@@ -107,24 +108,20 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
         };
 
         this.toDoListContainerService.updateTask(task.id, data).subscribe(
-          resp => {
-            console.log('editTask resp');
-            console.log(resp);
-
+          (resp: Task) => {
             this.snackBar.open('Task edited successfully.', '', {
               duration: 3000
             });
 
             this.taskList.forEach(function (item: any, index: number) {
               if (item.id === task.id) {
-                this.taskList[index].title = result.titleFormControl;
-                this.taskList[index].description = result.descriptionFormControl;
+                this.taskList[index] = resp;
               }
             }.bind(this));
             this.showLoading = false;
           },
           error => {
-            console.log('CONTROLLER ERROR' + error.error_description);
+            console.error('CONTROLLER ERROR' + error.error_description);
             this.showLoading = false;
           }
         );
@@ -158,7 +155,7 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
 
   public deleteTask(taskId: number) {
     this.toDoListContainerService.deleteTask(taskId).subscribe(
-      resp => {
+      (resp: Task) => {
         this.taskList = this.removeFromArray(this.taskList, taskId);
         this.snackBar.open('Task deleted successfully.', '', {
           duration: 3000
@@ -166,7 +163,7 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
         this.showLoading = false;
       },
       error => {
-        console.log('CONTROLLER ERROR' + error.error_description);
+        console.error('CONTROLLER ERROR' + error.error_description);
         this.showLoading = false;
       }
     );
@@ -190,13 +187,8 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
     this.showLoading = true;
 
     this.subscription.add(this.toDoListContainerService.getListOfTasks().subscribe(
-      resp => {
-        console.log('getListOfTasks');
-        console.log(resp);
-
-        this.taskList = Object.keys(resp).map(function (key) {
-          return resp[key];
-        });
+      (resp: Task[]) => {
+        this.taskList = resp;
 
         this.showLoading = false;
       },

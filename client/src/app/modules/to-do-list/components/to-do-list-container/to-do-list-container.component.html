@@ -43,15 +43,23 @@
           You don't have any tasks yet. Use the form above to add new tasks.
         </div>
         <div *ngFor="let task of taskList" class="task-item">
-          <div>
+          <div class="truncate">
             <mat-checkbox
               [(ngModel)]="task.status"
               (change)="changeStatus(task.id, $event)"
             >
-              {{ task.title }}
             </mat-checkbox>
+
+            {{ task.title }}
           </div>
           <div>
+            <mat-icon
+              *ngIf="task.description !== ''"
+              class="cursorPointer"
+              [matTooltip]="task.description"
+            >
+              info_outline
+            </mat-icon>
             <mat-icon
               class="cursorPointer"
               (click)="editTask(task); $event.stopPropagation()"

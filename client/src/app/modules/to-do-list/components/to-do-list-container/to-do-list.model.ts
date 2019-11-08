@@ -5,6 +5,8 @@ export class Task {
   priority: number;
   status: boolean;
   project: any;
+  createdAt: any;
+  updatedAt: any;
 
   constructor(
     id: number = 0,
@@ -12,7 +14,9 @@ export class Task {
     description: string,
     priority: number,
     status: boolean,
-    project: any
+    project: any,
+    createdAt: any,
+    updatedAt: any
   ) {
     this.id = id;
     this.title = title;
@@ -20,5 +24,7 @@ export class Task {
     this.priority = priority;
     this.status = status;
     this.project = project;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
