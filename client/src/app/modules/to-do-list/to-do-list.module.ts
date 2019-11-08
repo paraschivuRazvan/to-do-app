@@ -18,7 +18,6 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
-import { TaskItemComponent } from './components/task-item/task-item.component';
 
 export const ROUTES: Routes = [
   {
@@ -28,7 +27,7 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [ToDoListContainerComponent, EditTaskComponent, TaskItemComponent],
+  declarations: [ToDoListContainerComponent, EditTaskComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -44,7 +43,7 @@ export const ROUTES: Routes = [
     MatSnackBarModule
   ],
   entryComponents: [EditTaskComponent],
-  exports: [ToDoListContainerComponent, EditTaskComponent, TaskItemComponent]
+  exports: [ToDoListContainerComponent, EditTaskComponent]
 
 })
 export class ToDoListModule { }

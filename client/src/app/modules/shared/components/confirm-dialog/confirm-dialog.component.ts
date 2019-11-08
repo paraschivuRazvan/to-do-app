@@ -10,11 +10,8 @@ export class ConfirmDialogComponent implements OnInit {
   public dialogHeading: string;
   public dialogMessage: string;
   public btnText: string;
-  public showCancelBtn: boolean;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) {
-    this.showCancelBtn = false;
-  }
+  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) { }
 
   ngOnInit() { }
 }

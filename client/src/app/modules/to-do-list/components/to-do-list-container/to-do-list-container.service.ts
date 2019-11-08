@@ -55,12 +55,6 @@ export class ToDoListContainerService {
 
   // Update a task
   updateTask(id, data) {
-    // console.log(data);
-
-    // body {
-    //   # updated fields
-    // }
-
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
@@ -89,9 +83,9 @@ export class ToDoListContainerService {
     } else {
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error.error_description}`
+        `body was: ${error.message}`
       );
-      return throwError(error.error);
+      return throwError(error);
     }
   }
 }

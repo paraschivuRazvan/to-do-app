@@ -1,6 +1,6 @@
 <h1 mat-dialog-title class="dialog-heading">{{ dialogHeading }}</h1>
 <div mat-dialog-content class="dialog-content">{{ dialogMessage }}</div>
-<div mat-dialog-actions class="dialog-btn-container" *ngIf="showCancelBtn">
+<div mat-dialog-actions class="dialog-btn-container">
   <button
     mat-raised-button
     (click)="dialogRef.close(false)"
@@ -8,20 +8,6 @@
   >
     Cancel
   </button>
-  <button
-    mat-raised-button
-    (click)="dialogRef.close(true)"
-    class="dialog-action-btn"
-  >
-    {{ btnText }}
-  </button>
-</div>
-
-<div
-  mat-dialog-actions
-  class="dialog-btn-container-single"
-  *ngIf="!showCancelBtn"
->
   <button
     mat-raised-button
     (click)="dialogRef.close(true)"

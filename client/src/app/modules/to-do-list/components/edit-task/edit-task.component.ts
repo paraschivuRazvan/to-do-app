@@ -34,12 +34,10 @@ export class EditTaskComponent implements OnInit {
   }
 
   onNoClick(): void {
-    console.log('cancel');
     this.dialogRef.close();
   }
 
   stopEdit(): void {
-    console.log('save');
     this.dialogRef.close(Object.assign({}, this.editTaskForm.value));
   }
 }
