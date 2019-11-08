@@ -8,6 +8,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatIconModule,
+  MatCheckboxModule,
+  MatTooltipModule
+} from '@angular/material';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { TaskItemComponent } from './components/task-item/task-item.component';
+
 export const ROUTES: Routes = [
   {
     path: '',
@@ -16,13 +26,18 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [ToDoListContainerComponent],
+  declarations: [ToDoListContainerComponent, EditTaskComponent, TaskItemComponent],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTooltipModule
   ]
 })
 export class ToDoListModule { }

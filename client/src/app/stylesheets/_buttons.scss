@@ -1,0 +1,66 @@
+@import "./variables";
+
+.mat-button:disabled {
+  color: $color-white;
+  border: 0px;
+}
+
+button:focus {
+  outline: 0;
+}
+
+// buttons
+.transparent-btn {
+  border-radius: 5px;
+  background-color: transparent;
+  font-family: Arial;
+  font-size: 14px;
+  text-align: center;
+  border: solid 2px !important;
+  margin: 0 auto !important;
+  padding: 5px 0px;
+  cursor: pointer;
+  box-shadow: none !important;
+  max-height: 40px;
+}
+
+.transparent-btn:hover {
+  background-color: #ffffff9c !important;
+}
+
+.transparent-btn:active {
+  background-color: #ffffffb2 !important;
+}
+
+.btn-black-outline {
+  color: $color-text;
+  border-color: $color-text;
+}
+
+.btn-white-outline {
+  color: $color-white;
+  border-color: $color-white;
+}
+
+.blue-btn {
+  border-radius: 5px;
+  background-color: $color-light-blue;
+  text-align: center;
+  padding: 5px 0px;
+  cursor: pointer;
+  box-shadow: none !important;
+  color: $color-white;
+}
+
+.blue-btn:hover {
+  background-color: $color-light-blue-hover !important;
+}
+
+.blue-btn:active {
+  background-color: $color-light-blue-active !important;
+}
+
+.blue-btn:disabled {
+  background-color: $color-light-blue-disabled !important;
+  border: 0px;
+}

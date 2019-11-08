@@ -1,5 +1,71 @@
 <app-progress-spinner *ngIf="showLoading"></app-progress-spinner>
 
-<p>
-  to-do-list-container works!
-</p>
+<div class="background">
+  <div class="container">
+    <div class="header">
+      Tasks
+    </div>
+    <div class="new-task">
+      <form [formGroup]="newTaskForm">
+        <div class="form-elem">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              formControlName="taskTitle"
+              placeholder="Add a task"
+              required
+            />
+            <mat-error
+              *ngIf="newTaskForm.get('taskTitle').hasError('required')"
+            >
+              Task title is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-elem form-elem-btn">
+          <button
+            class="full-width add-task-btn"
+            mat-raised-button
+            (click)="addTask()"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="task-container">
+      <div class="task-list-header">
+        Task list
+      </div>
+      <div class="overflow-container">
+        <div *ngIf="taskList.length === 0">
+          You don't have any tasks yet. Use the form above to add new tasks.
+        </div>
+        <div *ngFor="let task of taskList" class="task-item">
+          <div>
+            <mat-checkbox [(ngModel)]="task.status">
+              {{ task.title }}
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-icon
+              class="cursorPointer"
+              (click)="editTask(task.id); $event.stopPropagation()"
+              matTooltip="Edit"
+            >
+              edit
+            </mat-icon>
+            <mat-icon
+              class="cursorPointer"
+              (click)="deleteTask(task.id); $event.stopPropagation()"
+              matTooltip="Delete"
+            >
+              delete_outline
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

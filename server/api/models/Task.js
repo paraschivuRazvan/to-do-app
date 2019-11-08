@@ -7,12 +7,12 @@
 
 module.exports = {
   attributes: {
-    title: { type: 'string', required: true, },
-    description: { type: 'string', allowNull: true, defaultsTo: '' },
-    priority: { type: 'number', allowNull: null },
+    title: { type: "string", required: true },
+    description: { type: "string", allowNull: true, defaultsTo: "" },
+    priority: { type: "number", allowNull: null },
+    status: { type: "boolean", allowNull: true, defaultsTo: false },
     project: {
-      model: 'project'
+      model: "project"
     }
   }
 };
-
