@@ -11,17 +11,23 @@ import { Subscription } from 'rxjs';
 export class ToDoListContainerComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
+  private showLoading = false;
 
   constructor(private toDoListContainerService: ToDoListContainerService) { }
 
   ngOnInit() {
+
+    this.showLoading = true;
+
     this.subscription.add(this.toDoListContainerService.getListOfTasks().subscribe(
       resp => {
         console.log('getListOfTasks');
         console.log(resp);
+        this.showLoading = false;
       },
       error => {
         console.error('CONTROLLER ERROR' + error.error_description);
+        this.showLoading = false;
       }
     ));
   }
