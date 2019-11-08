@@ -1,3 +1,64 @@
-<p>
-  edit-task works!
-</p>
+<div class="container">
+  <h3 mat-dialog-title>
+    Editing: {{ editTaskForm.get("titleFormControl").value }}
+  </h3>
+
+  <div class="extraInfo">
+    <div>Created: {{ sharedService.convertToDate(data.createdAt) }}</div>
+    <div>Last edited: {{ sharedService.prettyDate(data.updatedAt) }}</div>
+  </div>
+
+  <form
+    class="mat-dialog-content edit-dialog"
+    (ngSubmit)="submit()"
+    [formGroup]="editTaskForm"
+  >
+    <div class="form">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Task title"
+          formControlName="titleFormControl"
+          required
+        />
+        <mat-error
+          *ngIf="editTaskForm.get('titleFormControl').hasError('required')"
+        >
+          Task title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea
+          class="descTextArea"
+          matInput
+          formControlName="descriptionFormControl"
+          placeholder="Task description"
+        >
+        </textarea>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div mat-dialog-actions class="dialog-btn-container">
+    <button
+      mat-button
+      class="dialog-cancel-btn"
+      (click)="onNoClick()"
+      tabindex="-1"
+    >
+      Cancel
+    </button>
+
+    <button
+      mat-button
+      class="dialog-action-btn"
+      [type]="submit"
+      [disabled]="!editTaskForm.valid"
+      [mat-dialog-close]="true"
+      (click)="stopEdit()"
+    >
+      Save
+    </button>
+  </div>
+</div>

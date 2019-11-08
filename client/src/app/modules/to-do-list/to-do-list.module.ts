@@ -13,7 +13,9 @@ import {
   MatInputModule,
   MatIconModule,
   MatCheckboxModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
@@ -37,7 +39,12 @@ export const ROUTES: Routes = [
     MatInputModule,
     MatIconModule,
     MatCheckboxModule,
-    MatTooltipModule
-  ]
+    MatTooltipModule,
+    MatDialogModule,
+    MatSnackBarModule
+  ],
+  entryComponents: [EditTaskComponent],
+  exports: [ToDoListContainerComponent, EditTaskComponent, TaskItemComponent]
+
 })
 export class ToDoListModule { }

@@ -41,14 +41,7 @@ export class ToDoListContainerService {
   }
 
   // Create a task
-  creteTask(data) {
-    // console.log(data);
-
-    // body {
-    //   "title": string,
-    //   "description": string
-    // }
-
+  createTask(data) {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };

@@ -1,8 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToDoListContainerService } from './to-do-list-container.service';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatSnackBar
+} from '@angular/material';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   selector: 'app-to-do-list-container',
@@ -14,12 +21,16 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   public showLoading = false;
   public taskList: any;
+  dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   newTaskForm = new FormGroup({
     taskTitle: new FormControl()
   });
 
-  constructor(private toDoListContainerService: ToDoListContainerService) {
+  constructor(
+    private toDoListContainerService: ToDoListContainerService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar) {
     this.taskList = [];
   }
 
@@ -42,7 +53,7 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
         description: ''
       };
 
-      this.toDoListContainerService.creteTask(sendData).subscribe(
+      this.toDoListContainerService.createTask(sendData).subscribe(
         resp => {
           this.taskList.push(resp);
           this.resetForm(this.newTaskForm);
@@ -56,12 +67,113 @@ export class ToDoListContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  public editTask(taskId) {
-    
+  public changeStatus(taskId: number, event: any) {
+    const data = {
+      status: event.checked
+    };
+    this.toDoListContainerService.updateTask(taskId, data).subscribe(
+      resp => {
+        this.taskList.forEach(function (item: any, index: number) {
+          if (item.id === taskId) {
+            this.taskList[index].status = event.checked;
+          }
+        }.bind(this));
+
+        this.snackBar.open('Task status changed successfully.', '', {
+          duration: 3000
+        });
+        this.showLoading = false;
+      },
+      error => {
+        console.log('CONTROLLER ERROR' + error.error_description);
+        this.showLoading = false;
+      }
+    );
   }
 
-  public deleteTask(taskId) {
+  public editTask(task: any) {
+    const data = Object.assign({}, task);
 
+    const dialogRef = this.dialog.open(EditTaskComponent, {
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.showLoading = true;
+        const data = {
+          title: result.titleFormControl,
+          description: result.descriptionFormControl
+        };
+
+        this.toDoListContainerService.updateTask(task.id, data).subscribe(
+          resp => {
+            console.log('editTask resp');
+            console.log(resp);
+
+            this.snackBar.open('Task edited successfully.', '', {
+              duration: 3000
+            });
+
+            this.taskList.forEach(function (item: any, index: number) {
+              if (item.id === task.id) {
+                this.taskList[index].title = result.titleFormControl;
+                this.taskList[index].description = result.descriptionFormControl;
+              }
+            }.bind(this));
+            this.showLoading = false;
+          },
+          error => {
+            console.log('CONTROLLER ERROR' + error.error_description);
+            this.showLoading = false;
+          }
+        );
+      }
+    });
+  }
+
+  public confirmDeleteTask(taskId: number) {
+    this.openConfirmationDialog(taskId);
+  }
+
+  public openConfirmationDialog(taskId: number) {
+    this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      disableClose: false
+    });
+
+    this.dialogRef.componentInstance.dialogHeading = 'Attention';
+    this.dialogRef.componentInstance.dialogMessage =
+      'Are you sure you want to delete this entry?';
+    this.dialogRef.componentInstance.btnText = 'Delete';
+
+    this.dialogRef.componentInstance.showCancelBtn = true;
+
+    this.dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteTask(taskId);
+      }
+      this.dialogRef = null;
+    });
+  }
+
+  public deleteTask(taskId: number) {
+    this.toDoListContainerService.deleteTask(taskId).subscribe(
+      resp => {
+        this.taskList = this.removeFromArray(this.taskList, taskId);
+        this.snackBar.open('Task deleted successfully.', '', {
+          duration: 3000
+        });
+        this.showLoading = false;
+      },
+      error => {
+        console.log('CONTROLLER ERROR' + error.error_description);
+        this.showLoading = false;
+      }
+    );
+  }
+
+  private removeFromArray(array: any[], id: number) {
+    return array.filter(el => el.id !== id);
   }
 
   public resetForm(formGroup: FormGroup) {

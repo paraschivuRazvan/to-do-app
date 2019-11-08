@@ -1,0 +1,40 @@
+@import "../../../../stylesheets/buttons";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-width: 450px;
+}
+
+.container > * {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+}
+
+.mat-form-field {
+  font-size: 16px;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.dialog-btn-container {
+  justify-content: space-between;
+  padding: 0px;
+  margin-bottom: 0px;
+  margin-top: 15px;
+  min-height: auto;
+}
+
+.extraInfo {
+  margin-bottom: 15px;
+}
+
+.dialog-action-btn {
+  @extend .blue-btn;
+  padding: 0px 40px !important;
+}

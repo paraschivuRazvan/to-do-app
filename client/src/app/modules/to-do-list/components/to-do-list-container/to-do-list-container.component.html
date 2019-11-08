@@ -44,21 +44,24 @@
         </div>
         <div *ngFor="let task of taskList" class="task-item">
           <div>
-            <mat-checkbox [(ngModel)]="task.status">
+            <mat-checkbox
+              [(ngModel)]="task.status"
+              (change)="changeStatus(task.id, $event)"
+            >
               {{ task.title }}
             </mat-checkbox>
           </div>
           <div>
             <mat-icon
               class="cursorPointer"
-              (click)="editTask(task.id); $event.stopPropagation()"
+              (click)="editTask(task); $event.stopPropagation()"
               matTooltip="Edit"
             >
               edit
             </mat-icon>
             <mat-icon
               class="cursorPointer"
-              (click)="deleteTask(task.id); $event.stopPropagation()"
+              (click)="confirmDeleteTask(task.id); $event.stopPropagation()"
               matTooltip="Delete"
             >
               delete_outline

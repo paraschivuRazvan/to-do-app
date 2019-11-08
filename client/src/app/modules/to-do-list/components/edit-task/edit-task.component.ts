@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { SharedService } from '../../../shared/services/shared.service'
 
 @Component({
   selector: 'app-edit-task',
@@ -6,10 +9,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-task.component.scss']
 })
 export class EditTaskComponent implements OnInit {
+  editTaskForm = new FormGroup({
+    titleFormControl: new FormControl(),
+    descriptionFormControl: new FormControl()
+  });
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<EditTaskComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public sharedService: SharedService
+  ) {
+    this.editTaskForm = new FormGroup({
+      titleFormControl: new FormControl(data.title, [
+        Validators.required
+      ]),
+      descriptionFormControl: new FormControl(data.description, [])
+    });
+  }
 
   ngOnInit() {
   }
 
+  submit() {
+  }
+
+  onNoClick(): void {
+    console.log('cancel');
+    this.dialogRef.close();
+  }
+
+  stopEdit(): void {
+    console.log('save');
+    this.dialogRef.close(Object.assign({}, this.editTaskForm.value));
+  }
 }

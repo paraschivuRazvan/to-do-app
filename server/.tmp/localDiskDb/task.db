@@ -9,3 +9,26 @@
 {"title":"scv","description":"","createdAt":1573222779935,"updatedAt":1573222779935,"id":8,"priority":0,"status":false,"project":null,"_id":8}
 {"title":"svd","description":"","createdAt":1573222781212,"updatedAt":1573222781212,"id":9,"priority":0,"status":false,"project":null,"_id":9}
 {"title":"sdv","description":"","createdAt":1573222782471,"updatedAt":1573222782471,"id":10,"priority":0,"status":false,"project":null,"_id":10}
+{"$$deleted":true,"_id":10}
+{"$$deleted":true,"_id":9}
+{"$$deleted":true,"_id":8}
+{"title":"bobi","description":"","createdAt":1573242524174,"updatedAt":1573242524174,"id":11,"priority":0,"status":false,"project":null,"_id":11}
+{"$$deleted":true,"_id":5}
+{"title":"tt","description":"","createdAt":1573243295760,"updatedAt":1573243295760,"id":12,"priority":0,"status":false,"project":null,"_id":12}
+{"$$deleted":true,"_id":12}
+{"$$deleted":true,"_id":11}
+{"$$deleted":true,"_id":1}
+{"title":"my first task","description":"ceva test","createdAt":1573221662829,"updatedAt":1573243992545,"id":1,"priority":0,"status":true,"project":null,"_id":1}
+{"$$deleted":true,"_id":7}
+{"title":"newest test","description":"","createdAt":1573222772339,"updatedAt":1573246109015,"id":7,"priority":0,"status":true,"project":null,"_id":7}
+{"$$deleted":true,"_id":1}
+{"title":"my first task","description":"ceva test","createdAt":1573221662829,"updatedAt":1573246117567,"id":1,"priority":0,"status":false,"project":null,"_id":1}
+{"$$deleted":true,"_id":3}
+{"title":"another test","description":"","createdAt":1573222068789,"updatedAt":1573246118566,"id":3,"priority":0,"status":false,"project":null,"_id":3}
+{"$$deleted":true,"_id":6}
+{"title":"new test","description":"","createdAt":1573222747485,"updatedAt":1573246119347,"id":6,"priority":0,"status":false,"project":null,"_id":6}
+{"$$deleted":true,"_id":3}
+{"title":"another test","description":"tit","createdAt":1573222068789,"updatedAt":1573246140235,"id":3,"priority":0,"status":false,"project":null,"_id":3}
+{"$$deleted":true,"_id":1}
+{"$$deleted":true,"_id":3}
+{"title":"another test","description":"tit","createdAt":1573222068789,"updatedAt":1573246311824,"id":3,"priority":0,"status":true,"project":null,"_id":3}
